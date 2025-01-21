@@ -1,0 +1,23 @@
+services:
+  clean-arch-db:
+    image: mysql
+    container_name: clean-arch-container-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 13Champions
+      MYSQL_DATABASE: clean-arch-db
+      MYSQL_USER: emanuel
+      MYSQL_PASSWORD: 13Champions
+    volumes:
+      - db-volume:/var/lib/mysql
+  clean-arch-app:
+    image: clean-arch-image
+    container_name: clean-arch-container-app
+    build: .
+    ports:
+      - "8090:80"
+    depends_on:
+      - "clean-arch-db"
+volumes:
+  db-volume:
